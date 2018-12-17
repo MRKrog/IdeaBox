@@ -1,0 +1,48 @@
+/* Styles********
+---------
+COLORS
+blue #408da7
+light-blue #92dfe5
+
+Background Dark #524649
+Background Light #EAEAEA
+Background White # F9F9FA
+
+---------
+FONTS
+font-family: 'Open Sans', sans-serif;
+---------
+*****************/
+
+/* START Global Styles */
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+html {
+
+}
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, p, span, ul, li {
+  font-family: 'Open Sans', sans-serif;
+}
+a, button {
+  transition:all .5s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
+}
+/* END Global Styles */
+
+
+/* START Media Queries */
+@media screen and (max-width: 680px) {
+
+
+}
+/* END Media Queries */
