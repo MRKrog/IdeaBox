@@ -64,68 +64,79 @@ li {
 /* END Global Styles */
 
 /* START Nav Bar */
-.nav--conatiner {
-  display: flex;
+.header--container {
   background: #524649;
 }
+
+.nav--conatiner {
+  display: flex;
+  align-items: center;
+  max-width: 1400px;
+  width: 100%;
+  margin: auto;
+  padding: 0 2em;
+}
 .aside--nav_bar {
-  flex:1;
+  width:50%;
 }
 
-h1 {
-
+.h1--main_title {
+  color: #B2A1B1;
+  font-size: 2.5em;
+  line-height: 1;
+  margin: 0.4em 0;
 }
 
-h1 span {
-
+.h1--main_title span {
+  color:#fff;
 }
-
-/* END Nav Bar */
-
 
 .search-bar {
   width: 100%;
-  position: relative
+  position: relative;
+  margin-left: auto;
+  max-width: 250px;
+  padding: 0;
+  border: none;
 }
 
 .searchTerm {
-  float: left;
-  width: 100%;
-  border: 3px solid #00B4CC;
+  border: 2px solid #afa6aa;
   padding: 5px;
-  height: 20px;
-  border-radius: 5px;
+  border-radius: 2px;
   outline: none;
-  color: #9DBFAF;
+  color: #93868b;
+  width: 100%;
+  position: relative;
+  right: 30px;
 }
 
 .searchTerm:focus{
-  color: #00B4CC;
+  color: #93868b;
 }
 
 .searchButton {
-  position: absolute;
-  right: -50px;
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  width: 34px;
+  height: 32px;
+  background: #afa6aa;
   text-align: center;
   color: #fff;
-  border-radius: 5px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
   cursor: pointer;
   font-size: 20px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 30%;
+  outline: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 0;
+  top: 0px;
+  border: none;
 }
 
+.searchButton:hover {
+  background: #B2A1B1;
+}
+
+form-field
 .center-margins {
   margin-left: auto;
   margin-right: auto;
@@ -180,11 +191,49 @@ label {
   background-color: #524649;
 }
 
+.searchButton .fa-search {
+  outline: none;
+}
 
+/* END Nav Bar */
 
 /* START Media Queries */
 @media screen and (max-width: 680px) {
-
-
+  /* Nav Bar */
+  .nav--conatiner {
+    display: block;
+    padding: 1.2em;
+  }
+  .aside--nav_bar {
+    width:100%;
+    text-align: center;
+    padding-bottom: 1.2em;
+  }
+  .aside--nav_bar:last-child {
+    padding-bottom: 0em;
+  }
+  .h1--main_title {
+    margin:0;
+  }
+  .search-bar {
+    margin: auto;
+    max-width: 265px;
+    right: 15px;
+  }
+  .searchTerm {
+    right:0px;
+  }
+  .searchButton {
+    right: -32px;
+  }
+}
+@media screen and (max-width: 340px) {
+  /* Nav Bar */
+  .h1--main_title {
+    font-size:2em;
+  }
+  .search-bar {
+    max-width: 206px;
+  }
 }
 /* END Media Queries */
