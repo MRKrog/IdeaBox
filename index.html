@@ -30,23 +30,48 @@
       </nav>
     </header><!-- /End Navigation -->
     <!-- Form field section -->
-    <section class="input-forms">
-      <fieldset class="fieldset--container">
-        <form>
-          <label for="idea-title" class="label-spacing">Title</label>
-          <input type="text" name="idea-title" class="title-input inputs">
-        </form>
-      </fieldset>
-      <fieldset class="fieldset--container">
-        <form>
-          <label for="idea-body" class="label-spacing">Body</label>
-          <input type="text" name="idea-body" class="body-input inputs">
-        </form>
-      </fieldset>
-      <button type="submit" name="save-idea" class="submit-btn">Save</button>
-    </section>
+    <main class="main--input_forms">
+      <section class="section--input_container section-wrapper">
+        <fieldset class="fieldset--container">
+          <form>
+            <label for="idea-title" class="label-spacing">Title</label>
+            <input type="text" name="idea-title" class="title-input inputs">
+          </form>
+        </fieldset>
+        <fieldset class="fieldset--container">
+          <form>
+            <label for="idea-body" class="label-spacing">Body</label>
+            <input type="text" name="idea-body" class="body-input inputs">
+          </form>
+        </fieldset>
+        <button type="submit" name="save-idea" class="submit-btn">Save</button>
+      </section>
+    </main>
     <main class="main--idea_feed">
-
+      <section class="section--idea_container section-wrapper">
+        <article class="article--ideabox_card">
+          <div class="div--card_top">
+            <h2>Example Card 1</h2>
+            <p>
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui
+              blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+              et quas molestias excepturi sint occaecati.
+            </p>
+          </div>
+          <div class="div--card_bottom">
+            <button class="button--down button--card" type="button" name="button">
+              <img src="images/downvote.svg" />
+            </button>
+            <button class="button--up button--card" type="button" name="button">
+              <img src="images/upvote.svg" />
+            </button>
+            <h4 class="h4--quality_control">Quality: <span>Swill</span></h4>
+            <button class="button--close button--card" type="button" name="button">
+              <img src="images/delete.svg" />
+            </button>
+          </div>
+        </article>
+      </section>
     </main><!-- /End Footer -->
     <footer>
 
