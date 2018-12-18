@@ -48,14 +48,14 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #EAEAEA;
+  background:#f8f9fa;
 }
 
 h1, h2, h3, h4, p, span, ul, li {
   font-family: 'Open Sans', sans-serif;
 }
 
-a, button {
+a, button, img {
   transition:all .5s ease-in-out;
   cursor: pointer;
   text-decoration: none;
@@ -68,6 +68,47 @@ li {
 
 fieldset {
   border: none;
+}
+
+label {
+  color: #7C7879;
+  display: block;
+}
+
+h2 {
+  color:#6E646B;
+  margin: 0;
+  padding-bottom: .3em;
+}
+
+h4 {
+  color:#7C7879;
+  margin:0;
+}
+
+p {
+  color: #7C7879;
+  margin: 0;
+  line-height: 1.4;
+  font-size: 1.1em;
+}
+
+button {
+  background: none;
+  border:none;
+}
+img {
+  width:100%;
+}
+
+.section-wrapper {
+  width: 100%;
+  max-width: 580px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.5em;
 }
 
 /* END Global Styles */
@@ -160,19 +201,17 @@ fieldset {
 
 /* START Form Area */
 
+.main--input_forms {
+  background-color: #EAEAEA;
+}
+
 .center-margins {
   margin-left: auto;
   margin-right: auto;
 }
 
-.input-forms {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 1.5em;
-  width: 100%;
-  max-width: 580px;
-  margin: auto;
+.section--input_container {
+
 }
 
 .fieldset--container {
@@ -194,11 +233,6 @@ fieldset {
   height: 80px;
   border-radius: 3px;
   border: #cccccc solid 1px;
-}
-
-label {
-  color: #7C7879;
-  display: block;
 }
 
 .label-spacing {
@@ -223,7 +257,45 @@ label {
 
 /* START Idea Feed */
 
+.main--idea_feed {
+  background:#f8f9fa;
+}
 
+.article--ideabox_card {
+  border-radius: 5px;
+  border:#d1cbcd solid 2px;
+
+}
+
+.div--card_top {
+  padding: 1em;
+}
+
+.div--card_bottom {
+  display: flex;
+  align-items: center;
+  border-top:#d1cbcd solid 2px;
+  padding: .5em;
+}
+
+.h4--quality_control {
+  flex: 15;
+  margin-left: 8px;
+}
+
+.button--card {
+  background: none;
+  border: none;
+  width: 40px;
+  line-height: 1;
+  font-size: 0;
+  flex:1;
+  opacity: 1;
+}
+
+.button--card img:hover {
+  opacity: .6;
+}
 
 
 
@@ -262,6 +334,11 @@ label {
   }
   .searchButton {
     right: -32px;
+  }
+
+  /* From Section */
+  .section-wrapper {
+    padding: 1.5em
   }
 }
 @media screen and (max-width: 340px) {
