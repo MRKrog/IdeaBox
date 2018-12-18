@@ -66,11 +66,19 @@ li {
 /* START Nav Bar */
 .nav--conatiner {
   display: flex;
+  background: #524649;
 }
 .aside--nav_bar {
   flex:1;
 }
 
+h1 {
+
+}
+
+h1 span {
+
+}
 
 /* END Nav Bar */
 
