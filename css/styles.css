@@ -97,6 +97,13 @@ button {
   background: none;
   border:none;
 }
+
+.btn-disabled {
+  pointer-events: none;
+  background: #C2C1C0;
+  color: #FFFFFF;
+}
+
 img {
   width:100%;
 }
@@ -186,8 +193,9 @@ img {
   background: #B2A1B1;
 }
 
-.submit-btn:hoover {
+.submit-btn:hover {
   background-color: #524649;
+  pointer:cursor;
 }
 
 .searchButton .fa-search {
@@ -296,11 +304,6 @@ img {
 .button--card img:hover {
   opacity: .6;
 }
-
-
-
-
-
 
 /* END Idea Feed */
 
