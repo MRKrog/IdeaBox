@@ -136,23 +136,66 @@ li {
   background: #B2A1B1;
 }
 
+form-field
+.center-margins {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-forms {
+  background-color: #EAEAEA;
+  /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.inputs {
+  display: block;
+  width: 460px;
+}
+
+.title-input {
+  height: 33px;
+}
+
+.body-input {
+  height: 80px;
+  margin-bottom: 12px;
+}
+
+fieldset {
+  border: none;
+}
+
+label {
+  color: #7C7879;
+  display: block;
+}
+
+.label-spacing {
+  margin-bottom: 6px;
+}
+
+.submit-btn {
+  background-color: #6E646B;
+  color: #FFFFFF;
+  font-weight: bolder;
+  height: 33px;
+  width: 460px;
+  margin-bottom: 23px;
+}
+
+.submit-btn:hoover {
+  background-color: #524649;
+}
+
 .searchButton .fa-search {
   outline: none;
 }
 
-
-
 /* END Nav Bar */
-
-
-
-
-
-
-
-
-
-
 
 /* START Media Queries */
 @media screen and (max-width: 680px) {
