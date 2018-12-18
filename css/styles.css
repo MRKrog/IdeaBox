@@ -186,8 +186,9 @@ img {
   background: #B2A1B1;
 }
 
-.submit-btn:hoover {
+.submit-btn:hover {
   background-color: #524649;
+  pointer:cursor;
 }
 
 .searchButton .fa-search {
