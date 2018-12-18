@@ -183,8 +183,14 @@ li {
   .searchButton {
     right: -32px;
   }
-
-
-
+}
+@media screen and (max-width: 340px) {
+  /* Nav Bar */
+  .h1--main_title {
+    font-size:2em;
+  }
+  .search-bar {
+    max-width: 206px;
+  }
 }
 /* END Media Queries */
