@@ -14,23 +14,26 @@ submitBtn.addEventListener('click', submitClick);
 deleteBtn.addEventListener('click', deleteCard);
 
 
-
 // Functions
 function submitClick(e) {
   e.preventDefault();
+  let titleCopy = titleInput.value;
+  let bodyCopy = bodyInput.value;
+  let counter = 0;
   console.log("Submit Btn Clicked");
-  createCard();
+
+  let newIdea = new Idea(Date.now(), titleCopy, bodyCopy);
+  newIdea.saveToStorage();
+  createCard(newIdea);
 }
 
-function createCard(e) {
+function createCard(idea) {
   appendNewCard.insertAdjacentHTML('beforeend',
   `<article class="article--ideabox_card">
     <div class="div--card_top">
-      <h2>Example Card 1</h2>
+      <h2>${idea.title}</h2>
       <p>
-        At vero eos et accusamus et iusto odio dignissimos ducimus qui
-        blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-        et quas molestias excepturi sint occaecati.
+        ${idea.body}
       </p>
     </div>
     <div class="div--card_bottom">
@@ -50,7 +53,7 @@ function createCard(e) {
 
 function deleteCard() {
   console.log(event.target);
-  if (event.target.className === 'button--close') {
+  if (event.target.className === 'delete--button') {
     event.target.parentElement.parentElement.parentElement.remove();
     console.log("Delete clicked");
   }
