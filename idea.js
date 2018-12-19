@@ -1,14 +1,19 @@
 class Idea {
-  constructor(id, title, body) {
-    this.id = id;
+  constructor(key, title, body) {
+    this.key = key;
     this.title = title;
     this.body = body;
-    console.log("constructor call");
+    console.log(title, body);
+    // console.log("constructor call");
+    // console.log(cardArray);
   }
 
   saveToStorage() {
-    localStorage.setItem(this.id, JSON.stringify(this));
-    console.log("Save to storage called");
+    console.log("in save storage " + this);
+    // var stringifiedObj = JSON.stringify(this);
+    localStorage.setItem(this.key, JSON.stringify(this));
+    // console.log("Save to storage called");
+    // cardArray.push(this);
   }
 
   deleteFromStorage() {

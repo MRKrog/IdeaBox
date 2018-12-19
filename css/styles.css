@@ -265,7 +265,8 @@ img {
 .article--ideabox_card {
   border-radius: 5px;
   border:#d1cbcd solid 2px;
-
+  margin-bottom: 1.5em;
+  width: 100%;
 }
 
 .div--card_top {

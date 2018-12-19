@@ -1,5 +1,4 @@
 // Global variables
-
 const titleInput = document.querySelector(".title-input");
 const bodyInput = document.querySelector(".body-input");
 
@@ -8,23 +7,59 @@ const deleteBtn = document.querySelector(".button--close");
 
 const appendNewCard = document.querySelector('.section--idea_container');
 
+// const cardArray = JSON.parse(localStorage.getItem()) || [];
+const cardArray = [];
+
+
+// call a function that pushes storage items into card array and reassigns card array
+function updateArray(updatedArr){
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    var item = JSON.parse(localStorage.getItem(key));
+    cardArray.push(item);
+  }
+}
+
+updateArray(cardArray);
+
 
 // Event Listeners
 submitBtn.addEventListener('click', submitClick);
 deleteBtn.addEventListener('click', deleteCard);
+window.addEventListener('load', loadFromStorage);
 
 
-// Functions
+
+function loadFromStorage(){
+  console.log(cardArray);
+  console.log(localStorage);
+
+  for (var j = 0; j < cardArray.length; j++) {
+    createCard(cardArray[j]);
+  }
+}
+
+
 function submitClick(e) {
   e.preventDefault();
+
   let titleCopy = titleInput.value;
   let bodyCopy = bodyInput.value;
-  let counter = 0;
-  console.log("Submit Btn Clicked");
 
-  let newIdea = new Idea(Date.now(), titleCopy, bodyCopy);
+  var now = new Date().toISOString().slice(11,19);
+
+  // create object and pass the title and body as arguments
+  let newIdea = new Idea(now, titleCopy, bodyCopy);
+
+  cardArray.push(newIdea);
+
   newIdea.saveToStorage();
+
   createCard(newIdea);
+
+  console.log(cardArray);
+  console.log(localStorage);
+
 }
 
 function createCard(idea) {
@@ -49,7 +84,8 @@ function createCard(idea) {
       </button>
     </div>
   </article>`
-)}
+  );
+}
 
 function deleteCard() {
   console.log(event.target);
@@ -57,4 +93,14 @@ function deleteCard() {
     event.target.parentElement.parentElement.parentElement.remove();
     console.log("Delete clicked");
   }
+}
+
+
+
+const clearLocalStorage = document.querySelector('.clear-localStorage');
+clearLocalStorage.addEventListener('click', clearStorage);
+
+function clearStorage(){
+  window.localStorage.clear();
+  alert('cleared storage');
 }
