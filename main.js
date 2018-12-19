@@ -10,10 +10,6 @@ const cardArray = [];
 window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
 
-for (var i = 0; i < formInputs.length; i++) {
-  if(formInputs[i].id !== 'password2')
-  formInputs[i].addEventListener('click', deleteCard)
-}
 
 
 // Submit Card
@@ -47,48 +43,70 @@ function submitClick(e) {
   console.log(localStorage);
 }
 
+
+
 // Create Card
 function createCard(idea) {
   appendNewCard.insertAdjacentHTML('beforeend',
-  `<article class="article--ideabox_card">
-    <div class="div--card_top">
-      <h2>${idea.title}</h2>
-      <p>
-        ${idea.body}
-      </p>
-    </div>
-    <div class="div--card_bottom">
-      <button class="button--down button--card" type="button" name="button">
-        <img src="images/downvote.svg" />
-      </button>
-      <button class="button--up button--card" type="button" name="button">
-        <img src="images/upvote.svg" />
-      </button>
-      <h4 class="h4--quality_control">Quality: <span>${idea.quality}</span></h4>
-      <button class="button--close button--card" type="button" name="button">
-        <img src="images/delete.svg" />
-      </button>
-    </div>
-  </article>`
+    `<article class="article--ideabox_card id="${idea.key}">
+     <div class="div--card_top">
+       <h2>${idea.title}</h2>
+       <p>
+         ${idea.body}
+       </p>
+     </div>
+     <div class="div--card_bottom">
+       <button class="button--down button--card" type="button" name="button">
+         <img src="images/downvote.svg" />
+       </button>
+       <button class="button--up button--card" type="button" name="button">
+         <img src="images/upvote.svg" />
+       </button>
+       <h4 class="h4--quality_control">Quality: <span>${idea.quality}</span></h4>
+       <button class="button--close button--card" type="button" name="button" onclick="deleteCard(${idea.key});">
+         <img src="images/delete.svg" />
+       </button>
+     </div>
+    </article>`
   );
-}
+  //
+  // addEventsToCards(idea);
 
-const ideaboxCard = document.getElementsByClassName('article--ideabox_card')[0];
+  // const deleteBtn = document.querySelector(".button--close");
+  // const upQualityBtn = document.querySelector(".button--up");
+  // const downQualityBtn = document.querySelector(".button--down");
+  //
+  // deleteBtn.addEventListener('click', deleteCard);
+  // upQualityBtn.addEventListener('click', increaseQuality);
+  // downQualityBtn.addEventListener('click', decreaseQuality);
+  // return idea;
+}
+//
+// function addEventsToCards(idea){
+//   // console.log(idea.key);
+//
+//   let deleteBtn = document.querySelectorAll(".button--close");
+//
+//   // deleteBtn.addEventListener('click', deleteCard);
+//   for (var i = 0; i < deleteBtn.length; i++) {
+//     console.log(deleteBtn[i]);
+//     deleteBtn[i].addEventListener('click', deleteCard);
+//   }
+// }
+
+// const ideaboxCard = document.getElementsByClassName('article--ideabox_card')[0];
 
 // Delete Card
-function deleteCard(e) {
-  e.preventDefault();
-  console.log(event.target);
-  while (appendNewCard.firstElementChild) {
-    appendNewCard.removeChild(appendNewCard.firstElementChild);
-    console.log("entered delete while loop");
+function deleteCard(thisCard) {
+  var eventBtn = thisCard.target;
+  var imageContainer;
+  if (eventBtn.classList.contains("remove")) {
+    imageContainer = eventBtn.parentNode.parentNode.parentNode;
+    imageContainer.remove();
   }
-
-  deleteFromStorage();
-  // if (event.target.className === 'delete--button') {
-  //   event.target.parentElement.parentElement.parentElement.remove();
-  //   console.log("Delete clicked");
-  // }
+  cardArray.filter(keys)
+  var thisObj = cardArray.find();
+  // .deleteFromStorage();
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
@@ -111,11 +129,3 @@ function decreaseQuality(e) {
   e.preventDefault();
 
 }
-
-// const deleteBtn = document.querySelector(".button--close");
-// const upQualityBtn = document.querySelector(".button--up");
-// const downQualityBtn = document.querySelector(".button--down");
-
-// deleteBtn.addEventListener('click', deleteCard);
-// upQualityBtn.addEventListener('click', increaseQuality);
-// downQualityBtn.addEventListener('click', decreaseQuality);
