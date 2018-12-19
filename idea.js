@@ -12,7 +12,7 @@ class Idea {
 
   deleteFromStorage() {
     console.log("Deleting from storage: " + this);
-    localStorage.removeItem(this.key);
+    // localStorage.removeItem(this.key);
   }
 
   updateContent() {
