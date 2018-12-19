@@ -3,6 +3,7 @@ class Idea {
     this.key = key;
     this.title = title;
     this.body = body;
+    this.quality = quality;
   }
 
   saveToStorage() {
@@ -20,7 +21,7 @@ class Idea {
   }
 
   updateQuality() {
-
+    console.log("Update quality: " + this);
   }
 
 }
