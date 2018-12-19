@@ -4,15 +4,19 @@ const bodyInput = document.querySelector(".body-input");
 
 const submitBtn = document.querySelector(".submit-btn");
 const deleteBtn = document.querySelector(".button--close");
+const upQualityBtn = document.querySelector(".button--up");
+const downQualityBtn = document.querySelector(".button--down");
 
 const appendNewCard = document.querySelector('.section--idea_container');
 
 const cardArray = [];
 
 // Event Listeners
+window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
 deleteBtn.addEventListener('click', deleteCard);
-window.addEventListener('load', loadFromStorage);
+upQualityBtn.addEventListener('click', increaseQuality);
+
 
 
 function loadFromStorage(){
@@ -74,15 +78,22 @@ function createCard(idea) {
   );
 }
 
-function deleteCard() {
+const ideaboxCard = document.getElementsByClassName('article--ideabox_card')[0];
+
+function deleteCard(e) {
+  e.preventDefault();
   console.log(event.target);
-  if (event.target.className === 'delete--button') {
-    event.target.parentElement.parentElement.parentElement.remove();
-    console.log("Delete clicked");
+  while (appendNewCard.firstElementChild) {
+    appendNewCard.removeChild(appendNewCard.firstElementChild);
+    console.log("entered delete while loop");
   }
+
+  deleteFromStorage();
+  // if (event.target.className === 'delete--button') {
+  //   event.target.parentElement.parentElement.parentElement.remove();
+  //   console.log("Delete clicked");
+  // }
 }
-
-
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
 clearLocalStorage.addEventListener('click', clearStorage);
@@ -90,4 +101,10 @@ clearLocalStorage.addEventListener('click', clearStorage);
 function clearStorage(){
   window.localStorage.clear();
   alert('cleared storage');
+}
+
+function increaseQuality(e) {
+  e.preventDefault();
+
+
 }
