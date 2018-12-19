@@ -7,21 +7,7 @@ const deleteBtn = document.querySelector(".button--close");
 
 const appendNewCard = document.querySelector('.section--idea_container');
 
-// const cardArray = JSON.parse(localStorage.getItem()) || [];
 const cardArray = [];
-
-
-// call a function that pushes storage items into card array and reassigns card array
-function updateArray(updatedArr){
-  for (var i = 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i);
-    var item = JSON.parse(localStorage.getItem(key));
-    cardArray.push(item);
-  }
-}
-
-updateArray(cardArray);
-
 
 // Event Listeners
 submitBtn.addEventListener('click', submitClick);
@@ -29,13 +15,14 @@ deleteBtn.addEventListener('click', deleteCard);
 window.addEventListener('load', loadFromStorage);
 
 
-
 function loadFromStorage(){
-  console.log(cardArray);
-  console.log(localStorage);
-
-  for (var j = 0; j < cardArray.length; j++) {
-    createCard(cardArray[j]);
+    console.log(cardArray);
+    console.log(localStorage);
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    var item = JSON.parse(localStorage.getItem(key));
+    cardArray.push(item);
+    createCard(cardArray[i]);
   }
 }
 
