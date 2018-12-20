@@ -11,7 +11,6 @@ window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
 
 
-
 // Submit Card
 function loadFromStorage(){
     console.log(cardArray);
@@ -31,23 +30,20 @@ function submitClick(e) {
 
   let titleCopy = titleInput.value;
   let bodyCopy = bodyInput.value;
-  // let quality = 0;
+  let quality;
 
   var id = Date.now();
-  // create object and pass the title and body as arguments
   let newIdea = new Idea(id, titleCopy, bodyCopy, quality);
   cardArray.push(newIdea);
   newIdea.saveToStorage();
   createCard(newIdea);
-
-  console.log(cardArray);
-  console.log(localStorage);
 }
 
 
 
 // Create Card
 function createCard(idea) {
+  // var cardIdea = idea;
   appendNewCard.insertAdjacentHTML('beforeend',
     `<article class="article--ideabox_card" id="${idea.id}">
      <div class="div--card_top">
@@ -57,10 +53,10 @@ function createCard(idea) {
        </p>
      </div>
      <div class="div--card_bottom">
-       <button class="button--down button--card" type="button" name="button">
+       <button class="button--down button--card" type="button" name="button" onclick="decreaseQuality(${idea.id})">
          <img src="images/downvote.svg" />
        </button>
-       <button class="button--up button--card" type="button" name="button">
+       <button class="button--up button--card" type="button" name="button" onclick="increaseQuality(${idea.id})">
          <img src="images/upvote.svg" />
        </button>
        <h4 class="h4--quality_control">Quality: <span>${idea.quality}</span></h4>
@@ -71,7 +67,7 @@ function createCard(idea) {
     </article>`
   );
   //
-  // addEventsToCards(idea);
+  // addEventsToCards(cardIdea);
 
   // const deleteBtn = document.querySelector(".button--close");
   // const upQualityBtn = document.querySelector(".button--up");
@@ -125,13 +121,21 @@ function clearStorage(){
 }
 
 // Increase Quality
-function increaseQuality(e) {
-  e.preventDefault();
-
+function increaseQuality(upClick) {
+  let ideaToIncrease = cardArray.find(function(idea) {
+    return upClick === idea.id;
+  });
+  ideaToIncrease.updateQuality(1);
+  console.log(ideaToIncrease);
+  ideaToIncrease.saveToStorage();
 }
 
 // Decrease Quality
-function decreaseQuality(e) {
-  e.preventDefault();
-
+function decreaseQuality(downClick) {
+  let ideaToDecrease = cardArray.find(function(idea) {
+    return downClick === idea.id;
+  });
+  ideaToDecrease.updateQuality(-1);
+  console.log(ideaToDecrease);
+  ideaToDecrease.saveToStorage();
 }

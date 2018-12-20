@@ -3,7 +3,7 @@ class Idea {
     this.id = id;
     this.title = title;
     this.body = body;
-    this.quality = quality || 'swill';
+    this.quality = quality || 0;
   }
 
   saveToStorage() {
@@ -20,8 +20,17 @@ class Idea {
     localStorage.setItem(this.id, JSON.stringify(this));
   }
 
-  updateQuality() {
-    console.log("Update quality: " + this);
+  updateQuality(integer) {
+
+    var newQuality = (this.quality += integer);
+
+
+    
+
+    console.log(newQuality);
+
+    localStorage.setItem(this.key, JSON.stringify(newQuality));
+
   }
 
 }
