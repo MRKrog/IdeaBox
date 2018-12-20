@@ -86,7 +86,7 @@ function deleteCard(cardId) {
     return cardId === idea.id;
   })
 
-  cardArray.splice(deleteIndex , 1);
+  cardArray.splice(deleteIndex, 1);
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
@@ -108,16 +108,14 @@ function increaseQuality(upClick) {
     console.log(idea);
     return upClick === idea.id;
   });
+
   var thisId = ideaToIncrease.id
   var thisCard = document.getElementById(thisId.toString());
-  var thisHfour = thisCard.querySelector('.h4--quality_control > span')
+  var theQuality = thisCard.querySelector('.h4--quality_control > span');
+  var theButton = thisCard.querySelector('.button--up');
 
-  // console.log(thisCard);
-  // console.log(thisHfour);
-  // console.log(ideaToIncrease.id);
-  // console.log(ideaToIncrease.quality);
 
-  ideaToIncrease.updateQuality(1, thisHfour);
+  ideaToIncrease.updateQuality(1, theQuality, theButton);
   ideaToIncrease.saveToStorage();
 
 }
@@ -130,9 +128,9 @@ function decreaseQuality(downClick) {
 
   var thisId = ideaToDecrease.id
   var thisCard = document.getElementById(thisId.toString());
-  var thisHfour = thisCard.querySelector('.h4--quality_control > span');
+  var theQuality = thisCard.querySelector('.h4--quality_control > span');
 
-  ideaToDecrease.updateQuality(-1, thisHfour);
+  ideaToDecrease.updateQuality(-1, theQuality);
   console.log(ideaToDecrease);
   ideaToDecrease.saveToStorage();
 }
