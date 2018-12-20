@@ -24,9 +24,6 @@ class Idea {
 
     var newQuality = (this.quality += integer);
 
-
-
-
     console.log(newQuality);
 
     localStorage.setItem(this.key, JSON.stringify(newQuality));

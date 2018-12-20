@@ -37,6 +37,11 @@ function submitClick(e) {
   cardArray.push(newIdea);
   newIdea.saveToStorage();
   createCard(newIdea);
+
+  // Clear Inputs
+  // titleInput.value = "";
+  // bodyInput.value = "";
+
 }
 
 // Create Card
@@ -142,15 +147,15 @@ function decreaseQuality(downClick) {
 const searchBtn = document.querySelector('.searchButton');
 const searchInput = document.querySelector('.searchTerm');
 searchBtn.addEventListener('click', searchIdeas);
+searchInput.addEventListener('keyup', searchIdeas);
 
 function searchIdeas(e) {
   e.preventDefault();
   let inputSearch = searchInput.value.toLowerCase();
-  console.log("search button clicked");
-  console.log("search function card array: " + cardArray);
-  console.log(inputSearch);
+  // console.log("search function card array: " + cardArray);
+  // console.log(inputSearch);
   let filteredSearch = cardArray.filter(function(x, i) {
-    console.log("filter entered");
+    // console.log("filter entered");
     console.log("x = " + x);
     console.log("index = " + i);
     let titleSearch = x.title.toLowerCase();
