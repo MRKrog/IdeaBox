@@ -19,6 +19,7 @@ function loadFromStorage(){
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     var item = JSON.parse(localStorage.getItem(key));
+    let newIdea = new Idea(item.id, item.title, item.body, item.quality);
     cardArray.push(item);
     createCard(cardArray[i]);
   }
@@ -32,9 +33,9 @@ function submitClick(e) {
   let bodyCopy = bodyInput.value;
   let quality = 0;
 
-  var now = new Date().toISOString().slice(11,19);
+  var id = Date.now();
   // create object and pass the title and body as arguments
-  let newIdea = new Idea(now, titleCopy, bodyCopy, quality);
+  let newIdea = new Idea(id, titleCopy, bodyCopy, quality);
   cardArray.push(newIdea);
   newIdea.saveToStorage();
   createCard(newIdea);
@@ -48,7 +49,7 @@ function submitClick(e) {
 // Create Card
 function createCard(idea) {
   appendNewCard.insertAdjacentHTML('beforeend',
-    `<article class="article--ideabox_card id="${idea.key}">
+    `<article class="article--ideabox_card" id="${idea.id}">
      <div class="div--card_top">
        <h2>${idea.title}</h2>
        <p>
@@ -63,7 +64,7 @@ function createCard(idea) {
          <img src="images/upvote.svg" />
        </button>
        <h4 class="h4--quality_control">Quality: <span>${idea.quality}</span></h4>
-       <button class="button--close button--card" type="button" name="button" onclick="deleteCard(${idea.key});">
+       <button class="button--close button--card" type="button" name="button" onclick="deleteCard(${idea.id})">
          <img src="images/delete.svg" />
        </button>
      </div>
@@ -97,16 +98,24 @@ function createCard(idea) {
 // const ideaboxCard = document.getElementsByClassName('article--ideabox_card')[0];
 
 // Delete Card
-function deleteCard(thisCard) {
-  var eventBtn = thisCard.target;
-  var imageContainer;
-  if (eventBtn.classList.contains("remove")) {
-    imageContainer = eventBtn.parentNode.parentNode.parentNode;
-    imageContainer.remove();
-  }
-  cardArray.filter(keys)
-  var thisObj = cardArray.find();
-  // .deleteFromStorage();
+function deleteCard(cardId) {
+  var thisCard = document.getElementById(cardId.toString());
+  console.log(thisCard);
+  thisCard.remove();
+
+  let ideaToDelete = cardArray.find(function(idea) {
+    return cardId === idea.id;
+  });
+
+  ideaToDelete.deleteFromStorage();
+  let deleteIndex = cardArray.findIndex(function(idea){
+    return cardId === idea.id;
+  })
+
+  ideaToDelete.splice(deleteIndex , 1);
+
+
+
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');

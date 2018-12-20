@@ -1,23 +1,23 @@
 class Idea {
-  constructor(key, title, body, quality) {
-    this.key = key;
+  constructor(id, title, body, quality) {
+    this.id = id;
     this.title = title;
     this.body = body;
     this.quality = quality;
   }
 
   saveToStorage() {
-    localStorage.setItem(this.key, JSON.stringify(this));
+    localStorage.setItem(this.id, JSON.stringify(this));
   }
 
   deleteFromStorage() {
     console.log("Deleting from storage: " + this);
-    // localStorage.removeItem(this.key);
+    localStorage.removeItem(this.id);
   }
 
   updateContent() {
     console.log("Update content: " + this);
-    localStorage.setItem(this.key, JSON.stringify(this));
+    localStorage.setItem(this.id, JSON.stringify(this));
   }
 
   updateQuality() {
