@@ -11,7 +11,7 @@ class Idea {
   }
 
   deleteFromStorage() {
-    console.log("Deleting from storage: " + this);
+    console.log("Deleting from storage: " + this.title);
     localStorage.removeItem(this.id);
   }
 
@@ -25,7 +25,7 @@ class Idea {
     var newQuality = (this.quality += integer);
 
 
-    
+
 
     console.log(newQuality);
 
