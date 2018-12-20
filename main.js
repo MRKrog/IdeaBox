@@ -162,6 +162,6 @@ function searchIdeas(e) {
   appendNewCard.innerHTML = "";
   filteredSearch.forEach(function(idea){
     createCard(idea);
-  })
+  });
 
 }
