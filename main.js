@@ -114,16 +114,18 @@ function upDownQuality(cardId, direction){
   var theButton = thisCard.querySelector('.button--up');
   // Object Variables
   var newQuality = (ideaToUpdate.quality += direction);
-  theQuality.innerText = qualityArray[newQuality];
+  console.log("New Quality: " + newQuality);
+  console.log(ideaToUpdate);
   ideaToUpdate.quality = newQuality;
 
-  // if(ideaToUpdate.quality >= 2){
-  //
-  // } else if (){
-  //
-  // } else {
-  //
-  // }
+  if(ideaToUpdate.quality >= 2){
+    ideaToUpdate.quality = 2;
+  } else if (ideaToUpdate.quality <= 0){
+    newQuality = 0;
+  }
+
+  theQuality.innerText = qualityArray[newQuality];
+
 
   // console.log(ideaToUpdate.quality);
 
