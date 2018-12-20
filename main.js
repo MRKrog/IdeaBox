@@ -20,7 +20,7 @@ function loadFromStorage(){
     var key = localStorage.key(i);
     var item = JSON.parse(localStorage.getItem(key));
     let newIdea = new Idea(item.id, item.title, item.body, item.quality);
-    cardArray.push(item);
+    cardArray.push(newIdea);
     createCard(cardArray[i]);
   }
 }
@@ -100,7 +100,6 @@ function createCard(idea) {
 // Delete Card
 function deleteCard(cardId) {
   var thisCard = document.getElementById(cardId.toString());
-  console.log(thisCard);
   thisCard.remove();
 
   let ideaToDelete = cardArray.find(function(idea) {
@@ -108,14 +107,12 @@ function deleteCard(cardId) {
   });
 
   ideaToDelete.deleteFromStorage();
+
   let deleteIndex = cardArray.findIndex(function(idea){
     return cardId === idea.id;
   })
 
-  ideaToDelete.splice(deleteIndex , 1);
-
-
-
+  cardArray.splice(deleteIndex , 1);
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
