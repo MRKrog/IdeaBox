@@ -31,7 +31,7 @@ function submitClick(e) {
 
   let titleCopy = titleInput.value;
   let bodyCopy = bodyInput.value;
-  let quality = 0;
+  // let quality = 0;
 
   var id = Date.now();
   // create object and pass the title and body as arguments
