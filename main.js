@@ -4,6 +4,9 @@ const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
 
+const qualityArray = ['Swill', 'Plausible', 'Genius'];
+
+
 const cardArray = [];
 
 // Event Listeners
@@ -15,6 +18,9 @@ submitBtn.addEventListener('click', submitClick);
 function loadFromStorage(){
     console.log(cardArray);
     console.log(localStorage);
+
+    // foreach
+
   for (var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     var item = JSON.parse(localStorage.getItem(key));
@@ -30,7 +36,7 @@ function submitClick(e) {
 
   let titleCopy = titleInput.value;
   let bodyCopy = bodyInput.value;
-  let quality;
+  let quality = 0;
 
   var id = Date.now();
   let newIdea = new Idea(id, titleCopy, bodyCopy, quality);
@@ -56,13 +62,13 @@ function createCard(idea) {
        </p>
      </div>
      <div class="div--card_bottom">
-       <button class="button--down button--card" type="button" name="button" onclick="decreaseQuality(${idea.id})">
+       <button class="button--down button--card" type="button" name="button" onclick="upDownQuality(${idea.id}, -1)">
          <img src="images/downvote.svg" />
        </button>
-       <button class="button--up button--card" type="button" name="button" onclick="increaseQuality(${idea.id})">
+       <button class="button--up button--card" type="button" name="button" onclick="upDownQuality(${idea.id}, 1)">
          <img src="images/upvote.svg" />
        </button>
-       <h4 class="h4--quality_control">Quality: <span>${idea.quality}</span></h4>
+       <h4 class="h4--quality_control">Quality: <span>${qualityArray[idea.quality]}</span></h4>
        <button class="button--close button--card" type="button" name="button" onclick="deleteCard(${idea.id})">
          <img src="images/delete.svg" />
        </button>
@@ -98,42 +104,32 @@ function clearStorage(){
   alert('cleared storage');
 }
 
-const spanTag = document.querySelector('.h4--quality_control');
-console.log(spanTag);
-
-// Increase Quality
-function increaseQuality(upClick) {
-
-  let ideaToIncrease = cardArray.find(function(idea) {
-    console.log(idea);
-    return upClick === idea.id;
+function upDownQuality(cardId, direction){
+  let ideaToUpdate = cardArray.find(function(idea) {
+    return cardId === idea.id;
   });
-
-  var thisId = ideaToIncrease.id
-  var thisCard = document.getElementById(thisId.toString());
+  // HTML Variables
+  var thisCard = document.getElementById((ideaToUpdate.id).toString());
   var theQuality = thisCard.querySelector('.h4--quality_control > span');
   var theButton = thisCard.querySelector('.button--up');
+  // Object Variables
+  var newQuality = (ideaToUpdate.quality += direction);
+  theQuality.innerText = qualityArray[newQuality];
+  ideaToUpdate.quality = newQuality;
 
+  // if(ideaToUpdate.quality >= 2){
+  //
+  // } else if (){
+  //
+  // } else {
+  //
+  // }
 
-  ideaToIncrease.updateQuality(1, theQuality, theButton);
-  ideaToIncrease.saveToStorage();
+  // console.log(ideaToUpdate.quality);
 
+  ideaToUpdate.updateQuality();
 }
 
-// Decrease Quality
-function decreaseQuality(downClick) {
-  let ideaToDecrease = cardArray.find(function(idea) {
-    return downClick === idea.id;
-  });
-
-  var thisId = ideaToDecrease.id
-  var thisCard = document.getElementById(thisId.toString());
-  var theQuality = thisCard.querySelector('.h4--quality_control > span');
-
-  ideaToDecrease.updateQuality(-1, theQuality);
-  console.log(ideaToDecrease);
-  ideaToDecrease.saveToStorage();
-}
 
 // Search for Ideas
 const searchBtn = document.querySelector('.searchButton');
