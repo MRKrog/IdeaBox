@@ -69,32 +69,7 @@ function createCard(idea) {
      </div>
     </article>`
   );
-  //
-  // addEventsToCards(cardIdea);
-
-  // const deleteBtn = document.querySelector(".button--close");
-  // const upQualityBtn = document.querySelector(".button--up");
-  // const downQualityBtn = document.querySelector(".button--down");
-  //
-  // deleteBtn.addEventListener('click', deleteCard);
-  // upQualityBtn.addEventListener('click', increaseQuality);
-  // downQualityBtn.addEventListener('click', decreaseQuality);
-  // return idea;
 }
-//
-// function addEventsToCards(idea){
-//   // console.log(idea.key);
-//
-//   let deleteBtn = document.querySelectorAll(".button--close");
-//
-//   // deleteBtn.addEventListener('click', deleteCard);
-//   for (var i = 0; i < deleteBtn.length; i++) {
-//     console.log(deleteBtn[i]);
-//     deleteBtn[i].addEventListener('click', deleteCard);
-//   }
-// }
-
-// const ideaboxCard = document.getElementsByClassName('article--ideabox_card')[0];
 
 // Delete Card
 function deleteCard(cardId) {
@@ -111,7 +86,7 @@ function deleteCard(cardId) {
     return cardId === idea.id;
   })
 
-  cardArray.splice(deleteIndex , 1);
+  cardArray.splice(deleteIndex, 1);
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
@@ -123,14 +98,26 @@ function clearStorage(){
   alert('cleared storage');
 }
 
+const spanTag = document.querySelector('.h4--quality_control');
+console.log(spanTag);
+
 // Increase Quality
 function increaseQuality(upClick) {
+
   let ideaToIncrease = cardArray.find(function(idea) {
+    console.log(idea);
     return upClick === idea.id;
   });
-  ideaToIncrease.updateQuality(1);
-  console.log(ideaToIncrease);
+
+  var thisId = ideaToIncrease.id
+  var thisCard = document.getElementById(thisId.toString());
+  var theQuality = thisCard.querySelector('.h4--quality_control > span');
+  var theButton = thisCard.querySelector('.button--up');
+
+
+  ideaToIncrease.updateQuality(1, theQuality, theButton);
   ideaToIncrease.saveToStorage();
+
 }
 
 // Decrease Quality
@@ -138,7 +125,12 @@ function decreaseQuality(downClick) {
   let ideaToDecrease = cardArray.find(function(idea) {
     return downClick === idea.id;
   });
-  ideaToDecrease.updateQuality(-1);
+
+  var thisId = ideaToDecrease.id
+  var thisCard = document.getElementById(thisId.toString());
+  var theQuality = thisCard.querySelector('.h4--quality_control > span');
+
+  ideaToDecrease.updateQuality(-1, theQuality);
   console.log(ideaToDecrease);
   ideaToDecrease.saveToStorage();
 }
@@ -156,11 +148,11 @@ function searchIdeas(e) {
   // console.log(inputSearch);
   let filteredSearch = cardArray.filter(function(x, i) {
     // console.log("filter entered");
-    console.log("x = " + x);
-    console.log("index = " + i);
+    // console.log("x = " + x);
+    // console.log("index = " + i);
     let titleSearch = x.title.toLowerCase();
     let bodySearch = x.body.toLowerCase();
-    console.log(titleSearch.includes(inputSearch));
+    // console.log(titleSearch.includes(inputSearch));
     return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch);
   });
 
