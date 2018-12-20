@@ -20,14 +20,31 @@ class Idea {
     localStorage.setItem(this.id, JSON.stringify(this));
   }
 
-  updateQuality(integer) {
-
+  updateQuality(integer, qualityControl) {
+    
     var newQuality = (this.quality += integer);
+    switch (newQuality) {
+      case 0:
+        console.log('in zero');
+        qualityControl.innerText = "Swill";
 
+        break;
+      case 1:
+        console.log('in one');
+        qualityControl.innerText = "Plausible";
+        break;
+      case 2:
+         console.log('in Two');
+         qualityControl.innerText = "Genius";
+        break;
+      default:
+        console.log('defualt');
+    }
+    console.log(qualityControl);
     console.log(newQuality);
 
-    localStorage.setItem(this.key, JSON.stringify(newQuality));
 
+    localStorage.setItem(this.key, JSON.stringify(newQuality));
   }
 
 }
