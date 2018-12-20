@@ -39,8 +39,6 @@ function submitClick(e) {
   createCard(newIdea);
 }
 
-
-
 // Create Card
 function createCard(idea) {
   // var cardIdea = idea;
@@ -138,4 +136,32 @@ function decreaseQuality(downClick) {
   ideaToDecrease.updateQuality(-1);
   console.log(ideaToDecrease);
   ideaToDecrease.saveToStorage();
+}
+
+// Search for Ideas
+const searchBtn = document.querySelector('.searchButton');
+const searchInput = document.querySelector('.searchTerm');
+searchBtn.addEventListener('click', searchIdeas);
+
+function searchIdeas(e) {
+  e.preventDefault();
+  let inputSearch = searchInput.value.toLowerCase();
+  console.log("search button clicked");
+  console.log("search function card array: " + cardArray);
+  console.log(inputSearch);
+  let filteredSearch = cardArray.filter(function(x, i) {
+    console.log("filter entered");
+    console.log("x = " + x);
+    console.log("index = " + i);
+    let titleSearch = x.title.toLowerCase();
+    let bodySearch = x.body.toLowerCase();
+    console.log(titleSearch.includes(inputSearch));
+    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch);
+  });
+
+  appendNewCard.innerHTML = "";
+  filteredSearch.forEach(function(idea){
+    createCard(idea);
+  })
+
 }
