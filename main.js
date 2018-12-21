@@ -54,7 +54,7 @@ function submitClick(event) {
 // Create Card
 function createCard(idea) {
   // var cardIdea = idea;
-  appendNewCard.insertAdjacentHTML('beforeend',
+  appendNewCard.insertAdjacentHTML('afterbegin',
     `<article class="article--ideabox_card" id="${idea.id}">
      <div class="div--card_top">
        <h2>${idea.title}</h2>
