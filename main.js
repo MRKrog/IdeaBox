@@ -16,18 +16,16 @@ submitBtn.addEventListener('click', submitClick);
 
 // Submit Card
 function loadFromStorage(){
-    console.log(cardArray);
-    console.log(localStorage);
+  console.log(cardArray);
+  console.log(localStorage);
 
-    // foreach
-
-  for (var i = 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i);
-    var item = JSON.parse(localStorage.getItem(key));
+  Object.keys(localStorage).forEach(function(id){
+    // console.log(id);
+    var item = JSON.parse(localStorage.getItem(id));
     let newIdea = new Idea(item.id, item.title, item.body, item.quality);
     cardArray.push(newIdea);
-    createCard(cardArray[i]);
-  }
+    createCard(newIdea);
+  });
 }
 
 // Submit Card
@@ -47,7 +45,6 @@ function submitClick(e) {
   // Clear Inputs
   // titleInput.value = "";
   // bodyInput.value = "";
-
 }
 
 // Create Card
@@ -88,11 +85,11 @@ function deleteCard(cardId) {
 
   ideaToDelete.deleteFromStorage();
 
-  let deleteIndex = cardArray.findIndex(function(idea){
+  let deleteCardArray = cardArray.findIndex(function(idea){
     return cardId === idea.id;
   })
 
-  cardArray.splice(deleteIndex, 1);
+  cardArray.splice(deleteCardArray, 1);
 }
 
 const clearLocalStorage = document.querySelector('.clear-localStorage');
@@ -108,27 +105,24 @@ function upDownQuality(cardId, direction){
   let ideaToUpdate = cardArray.find(function(idea) {
     return cardId === idea.id;
   });
-  // HTML Variables
-  var thisCard = document.getElementById((ideaToUpdate.id).toString());
-  var theQuality = thisCard.querySelector('.h4--quality_control > span');
-  var theButton = thisCard.querySelector('.button--up');
-  // Object Variables
-  var newQuality = (ideaToUpdate.quality += direction);
-  console.log("New Quality: " + newQuality);
-  console.log(ideaToUpdate);
-  ideaToUpdate.quality = newQuality;
+  var thisCard = document.getElementById((ideaToUpdate.id).toString()); // the whole card
+  var theQuality = thisCard.querySelector('.h4--quality_control > span'); // h4 quality
+  var newQuality = ideaToUpdate.quality; // this instance quality value
 
-  if(ideaToUpdate.quality >= 2){
-    ideaToUpdate.quality = 2;
-  } else if (ideaToUpdate.quality <= 0){
-    newQuality = 0;
+  if(direction === 1 && newQuality < 2){
+    if(newQuality === 1){
+      ideaToUpdate.quality = 2; // Now Genius
+    } else if (newQuality === 0) {
+      ideaToUpdate.quality = 1; // Now Plausible
+    }
+  } else if(direction === -1){
+    if(newQuality === 2) {
+      ideaToUpdate.quality = 1; // Now Plausible
+    } else if(newQuality === 1){
+      ideaToUpdate.quality = 0; // Now Swill
+    }
   }
-
-  theQuality.innerText = qualityArray[newQuality];
-
-
-  // console.log(ideaToUpdate.quality);
-
+  theQuality.innerText = qualityArray[ideaToUpdate.quality];
   ideaToUpdate.updateQuality();
 }
 
@@ -150,8 +144,13 @@ function searchIdeas(e) {
     // console.log("index = " + i);
     let titleSearch = x.title.toLowerCase();
     let bodySearch = x.body.toLowerCase();
+    // let qualitySearch = qualityArray[x.quality].toLowerCase();
+    let qualitySearch = qualityArray[x.quality];
+    // console.log(body);
     // console.log(titleSearch.includes(inputSearch));
-    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch);
+    // console.log(qualitySearch);
+    console.log(qualityArray[x.quality]);
+    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch) || qualitySearch.includes(inputSearch)
   });
 
   appendNewCard.innerHTML = "";

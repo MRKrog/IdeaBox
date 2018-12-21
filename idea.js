@@ -4,7 +4,6 @@ class Idea {
     this.title = title;
     this.body = body;
     this.quality = quality;
-    // console.log(this.quality);
   }
 
   saveToStorage() {
@@ -22,6 +21,8 @@ class Idea {
   }
 
   updateQuality() {
+    console.log("this is the id " + this.id);
+    console.log(this)
     localStorage.setItem(this.id, JSON.stringify(this));
   }
 }
