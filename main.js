@@ -3,9 +3,7 @@ const titleInput = document.querySelector(".title-input");
 const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
-
 const qualityArray = ['Swill', 'Plausible', 'Genius'];
-
 
 const cardArray = [];
 
@@ -13,6 +11,13 @@ const cardArray = [];
 window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
 
+// Listen for user Enter key
+bodyInput.addEventListener('keypress', function(event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    document.getElementById('submitBtn').click();
+  }
+});
 
 // Submit Card
 function loadFromStorage(){
@@ -20,7 +25,6 @@ function loadFromStorage(){
   console.log(localStorage);
 
   Object.keys(localStorage).forEach(function(id){
-    // console.log(id);
     var item = JSON.parse(localStorage.getItem(id));
     let newIdea = new Idea(item.id, item.title, item.body, item.quality);
     cardArray.push(newIdea);
@@ -29,8 +33,8 @@ function loadFromStorage(){
 }
 
 // Submit Card
-function submitClick(e) {
-  e.preventDefault();
+function submitClick(event) {
+  event.preventDefault();
 
   let titleCopy = titleInput.value;
   let bodyCopy = bodyInput.value;
