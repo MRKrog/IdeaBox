@@ -3,13 +3,16 @@ const titleInput = document.querySelector(".title-input");
 const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
+
 const qualityArray = ['Swill', 'Plausible', 'Genius'];
+const qualClick = document.querySelector("#quality-filter");
 
 const cardArray = [];
 
 // Event Listeners
 window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
+qualClick.addEventListener('click', qualityFilter);
 
 // Listen for user Enter key
 bodyInput.addEventListener('keypress', function(event) {
@@ -140,26 +143,26 @@ searchInput.addEventListener('keyup', searchIdeas);
 function searchIdeas(e) {
   e.preventDefault();
   let inputSearch = searchInput.value.toLowerCase();
-  // console.log("search function card array: " + cardArray);
-  // console.log(inputSearch);
   let filteredSearch = cardArray.filter(function(x, i) {
-    // console.log("filter entered");
-    // console.log("x = " + x);
-    // console.log("index = " + i);
     let titleSearch = x.title.toLowerCase();
     let bodySearch = x.body.toLowerCase();
-    // let qualitySearch = qualityArray[x.quality].toLowerCase();
-    let qualitySearch = qualityArray[x.quality];
-    // console.log(body);
-    // console.log(titleSearch.includes(inputSearch));
-    // console.log(qualitySearch);
-    console.log(qualityArray[x.quality]);
-    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch) || qualitySearch.includes(inputSearch)
+    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch)
   });
-
   appendNewCard.innerHTML = "";
   filteredSearch.forEach(function(idea){
     createCard(idea);
   });
+}
 
+function qualityFilter(event){
+  event.preventDefault();
+  var clickedQuality = event.target.dataset.quality;
+  let filteredQuality = cardArray.filter(function(x, i){
+    let qualityName = qualityArray[x.quality]
+    return qualityName.includes(clickedQuality)
+  });
+  appendNewCard.innerHTML = "";
+  filteredQuality.forEach(function(idea){
+    createCard(idea)
+  });
 }
