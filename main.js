@@ -3,13 +3,18 @@ const titleInput = document.querySelector(".title-input");
 const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
+var footerContainer = document.querySelector('.footer--container');
+
+var tenCardHeight = 0;
 const qualityArray = ['Swill', 'Plausible', 'Genius'];
+const qualClick = document.querySelector("#quality-filter");
 
 const cardArray = [];
 
 // Event Listeners
 window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
+qualClick.addEventListener('click', qualityFilter);
 
 // Listen for user Enter key
 bodyInput.addEventListener('keypress', function(event) {
@@ -23,13 +28,13 @@ bodyInput.addEventListener('keypress', function(event) {
 function loadFromStorage(){
   console.log(cardArray);
   console.log(localStorage);
-
   Object.keys(localStorage).forEach(function(id){
     var item = JSON.parse(localStorage.getItem(id));
     let newIdea = new Idea(item.id, item.title, item.body, item.quality);
     cardArray.push(newIdea);
     createCard(newIdea);
   });
+  setShowMore();
 }
 
 // Submit Card
@@ -53,7 +58,6 @@ function submitClick(event) {
 
 // Create Card
 function createCard(idea) {
-  // var cardIdea = idea;
   appendNewCard.insertAdjacentHTML('afterbegin',
     `<article class="article--ideabox_card" id="${idea.id}">
      <div class="div--card_top">
@@ -96,14 +100,13 @@ function deleteCard(cardId) {
   cardArray.splice(deleteCardArray, 1);
 }
 
-const clearLocalStorage = document.querySelector('.clear-localStorage');
-clearLocalStorage.addEventListener('click', clearStorage);
-
-// Clear Storage
-function clearStorage(){
-  window.localStorage.clear();
-  alert('cleared storage');
-}
+// const clearLocalStorage = document.querySelector('.clear-localStorage');
+// clearLocalStorage.addEventListener('click', clearStorage);
+// // Clear Storage
+// function clearStorage(){
+//   window.localStorage.clear();
+//   alert('cleared storage');
+// }
 
 function upDownQuality(cardId, direction){
   let ideaToUpdate = cardArray.find(function(idea) {
@@ -140,26 +143,69 @@ searchInput.addEventListener('keyup', searchIdeas);
 function searchIdeas(e) {
   e.preventDefault();
   let inputSearch = searchInput.value.toLowerCase();
-  // console.log("search function card array: " + cardArray);
-  // console.log(inputSearch);
   let filteredSearch = cardArray.filter(function(x, i) {
-    // console.log("filter entered");
-    // console.log("x = " + x);
-    // console.log("index = " + i);
     let titleSearch = x.title.toLowerCase();
     let bodySearch = x.body.toLowerCase();
-    // let qualitySearch = qualityArray[x.quality].toLowerCase();
-    let qualitySearch = qualityArray[x.quality];
-    // console.log(body);
-    // console.log(titleSearch.includes(inputSearch));
-    // console.log(qualitySearch);
-    console.log(qualityArray[x.quality]);
-    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch) || qualitySearch.includes(inputSearch)
+    return titleSearch.includes(inputSearch) || bodySearch.includes(inputSearch)
   });
-
   appendNewCard.innerHTML = "";
   filteredSearch.forEach(function(idea){
     createCard(idea);
   });
+}
 
+function qualityFilter(event){
+  event.preventDefault();
+  var clickedQuality = event.target.dataset.quality;
+  let filteredQuality = cardArray.filter(function(x, i){
+    let qualityName = qualityArray[x.quality]
+    return qualityName.includes(clickedQuality)
+  });
+  appendNewCard.innerHTML = "";
+  filteredQuality.forEach(function(idea){
+    createCard(idea)
+  });
+}
+
+function setShowMore(){
+  var numberOfCards = cardArray.length;
+  if(numberOfCards >= 10) {
+    footerContainer.insertAdjacentHTML('afterbegin',
+      `<button class="show-cards">Show More...</button>`
+    );
+    var showBtn = document.querySelector('.show-cards');
+    showBtn.addEventListener('click', showMoreLessBtn);
+    //
+    // var cardTop = document.querySelector('.div--card_top').offsetHeight;
+    // console.log(cardTop);
+    //
+    // var cardBottom = document.querySelector('.div--card_bottom').offsetHeight;
+    // console.log(cardBottom);
+
+    var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    console.log(cardHeight + "px single card height");
+
+    // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    tenCardHeight = cardHeight * 11;
+    console.log(tenCardHeight + "px 10 card height");
+    
+    appendNewCard.classList.add('hideContent');
+    appendNewCard.style.height = `${tenCardHeight}px`;
+  }
+}
+
+function showMoreLessBtn(){
+  var thisText = this.innerText.toUpperCase();
+  if(thisText === "SHOW MORE..."){
+    appendNewCard.style.height = `auto`;
+    appendNewCard.classList.remove('hideContent');
+    appendNewCard.classList.add('showContent');
+    this.innerText = "Show Less...";
+
+  } else if(thisText === "SHOW LESS..."){
+    this.innerText = "Show More...";
+    appendNewCard.classList.remove('showContent');
+    appendNewCard.classList.add('hideContent');
+    appendNewCard.style.height = `${tenCardHeight}px`;
+  }
 }
