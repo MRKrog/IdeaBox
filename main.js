@@ -3,7 +3,9 @@ const titleInput = document.querySelector(".title-input");
 const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
+var footerContainer = document.querySelector('.footer--container');
 
+var tenCardHeight = 0;
 const qualityArray = ['Swill', 'Plausible', 'Genius'];
 const qualClick = document.querySelector("#quality-filter");
 
@@ -26,13 +28,13 @@ bodyInput.addEventListener('keypress', function(event) {
 function loadFromStorage(){
   console.log(cardArray);
   console.log(localStorage);
-
   Object.keys(localStorage).forEach(function(id){
     var item = JSON.parse(localStorage.getItem(id));
     let newIdea = new Idea(item.id, item.title, item.body, item.quality);
     cardArray.push(newIdea);
     createCard(newIdea);
   });
+  setShowMore();
 }
 
 // Submit Card
@@ -56,7 +58,6 @@ function submitClick(event) {
 
 // Create Card
 function createCard(idea) {
-  // var cardIdea = idea;
   appendNewCard.insertAdjacentHTML('afterbegin',
     `<article class="article--ideabox_card" id="${idea.id}">
      <div class="div--card_top">
@@ -99,14 +100,13 @@ function deleteCard(cardId) {
   cardArray.splice(deleteCardArray, 1);
 }
 
-const clearLocalStorage = document.querySelector('.clear-localStorage');
-clearLocalStorage.addEventListener('click', clearStorage);
-
-// Clear Storage
-function clearStorage(){
-  window.localStorage.clear();
-  alert('cleared storage');
-}
+// const clearLocalStorage = document.querySelector('.clear-localStorage');
+// clearLocalStorage.addEventListener('click', clearStorage);
+// // Clear Storage
+// function clearStorage(){
+//   window.localStorage.clear();
+//   alert('cleared storage');
+// }
 
 function upDownQuality(cardId, direction){
   let ideaToUpdate = cardArray.find(function(idea) {
@@ -165,4 +165,47 @@ function qualityFilter(event){
   filteredQuality.forEach(function(idea){
     createCard(idea)
   });
+}
+
+function setShowMore(){
+  var numberOfCards = cardArray.length;
+  if(numberOfCards >= 10) {
+    footerContainer.insertAdjacentHTML('afterbegin',
+      `<button class="show-cards">Show More...</button>`
+    );
+    var showBtn = document.querySelector('.show-cards');
+    showBtn.addEventListener('click', showMoreLessBtn);
+    //
+    // var cardTop = document.querySelector('.div--card_top').offsetHeight;
+    // console.log(cardTop);
+    //
+    // var cardBottom = document.querySelector('.div--card_bottom').offsetHeight;
+    // console.log(cardBottom);
+
+    var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    console.log(cardHeight + "px single card height");
+
+    // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    tenCardHeight = cardHeight * 11;
+    console.log(tenCardHeight + "px 10 card height");
+    
+    appendNewCard.classList.add('hideContent');
+    appendNewCard.style.height = `${tenCardHeight}px`;
+  }
+}
+
+function showMoreLessBtn(){
+  var thisText = this.innerText.toUpperCase();
+  if(thisText === "SHOW MORE..."){
+    appendNewCard.style.height = `auto`;
+    appendNewCard.classList.remove('hideContent');
+    appendNewCard.classList.add('showContent');
+    this.innerText = "Show Less...";
+
+  } else if(thisText === "SHOW LESS..."){
+    this.innerText = "Show More...";
+    appendNewCard.classList.remove('showContent');
+    appendNewCard.classList.add('hideContent');
+    appendNewCard.style.height = `${tenCardHeight}px`;
+  }
 }
