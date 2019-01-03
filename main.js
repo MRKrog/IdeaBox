@@ -102,7 +102,7 @@ function updateText() {
   let id = event.target.dataset.id;
   let ideaToUpdate = getIdeaById(id);
   let ideaText = event.target.innerText;
-  let index = getIndex(ideaToUpdate);
+  let index = cardArray.indexOf(ideaToUpdate);
   if (event.target.classList.contains('updated-title')) {
     ideaToUpdate.updateContent(ideaText, 'title');
   } else {
@@ -118,10 +118,6 @@ function getIdeaById(id) {
       return cardArray[i];
     }
   }
-}
-
-function getIndex(idea) {
-  console.log(cardArray.indexOf(idea));
 }
 
 // Delete Card
