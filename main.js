@@ -216,19 +216,11 @@ function setShowMore(){
     );
     var showBtn = document.querySelector('.show-cards');
     showBtn.addEventListener('click', showMoreLessBtn);
-
     for(var i = 0; i < 10; i++){
       var thisCardHeight = (allCards[i].offsetHeight) + 25;
       tenCardHeight += thisCardHeight
     }
     appendNewCard.classList.add('showContent');
-
-    var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
-
-    // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
-    tenCardHeight = cardHeight * 11;
-
-    appendNewCard.classList.add('hideContent');
     appendNewCard.style.height = `${tenCardHeight}px`;
   }
   else {
