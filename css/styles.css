@@ -75,6 +75,7 @@ h2 {
   color:#6E646B;
   margin: 0;
   padding-bottom: .3em;
+  outline: none;
 }
 
 h4 {
@@ -87,6 +88,7 @@ p {
   margin: 0;
   line-height: 1.4;
   font-size: 1.1em;
+  outline: none;
 }
 
 button {
@@ -298,6 +300,14 @@ footer {
   border-radius: 5px;
 }
 
+.filter-btn:nth-child(4) {
+  width:50%;
+}
+
+.filter-btn:last-child {
+  width:49%;
+}
+
 /* END Form Area */
 
 
@@ -394,6 +404,14 @@ footer {
     height: 35px;
     width: 100%;
     font-size: 1em;
+  }
+
+  .filter-btn:nth-child(4) {
+    width: 100%;
+  }
+
+  .filter-btn:last-child {
+    width: 100%;
   }
 
 }
