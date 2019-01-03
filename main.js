@@ -91,8 +91,7 @@ function createCard(idea) {
 function updateCard() {
   if (event.target.className === 'article--ideabox_card' || 'div--card_top') {
     if (event.target.classList.contains('update-idea')) {
-      // console.log("entered");
-      // console.log(event.target);
+
       event.target.addEventListener('blur', updateText);
     }
   }
@@ -104,10 +103,6 @@ function updateText() {
   let ideaToUpdate = getIdeaById(id);
   let ideaText = event.target.innerText;
   let index = getIndex(ideaToUpdate);
-  // console.log(event.target);
-  // console.log("id: " + id);
-  // console.log("idea to update: " + ideaToUpdate);
-  // console.log("idea text: " + ideaText);
   if (event.target.classList.contains('updated-title')) {
     ideaToUpdate.updateContent(ideaText, 'title');
   } else {
@@ -115,11 +110,6 @@ function updateText() {
   }
     cardArray.splice(index, 1, ideaToUpdate);
     ideaToUpdate.saveToStorage(cardArray);
-
-  if (event.target.classList.contains('article')) {
-    console.log(event.target.innerHTML);
-    console.log("if statement entered");
-  }
 }
 
 function getIdeaById(id) {
@@ -220,7 +210,6 @@ function setShowMore(){
   tenCardHeight = 0;
   allCardHeight = 0;
   var allCards = document.querySelectorAll('.article--ideabox_card');
-  console.log(allCards);
   if(numberOfCards > 10 && allCards.length > 10) {
     footerContainer.insertAdjacentHTML('afterbegin',
       `<button class="show-cards">Show More...</button>`
@@ -232,30 +221,17 @@ function setShowMore(){
       var thisCardHeight = (allCards[i].offsetHeight) + 25;
       tenCardHeight += thisCardHeight
     }
-
-    console.log(tenCardHeight + "px Ten Cards Height");
-
-    console.log(appendNewCard.offsetHeight + "px All Cards Height");
     appendNewCard.classList.add('showContent');
-    //
-    // var cardTop = document.querySelector('.div--card_top').offsetHeight;
-    // console.log(cardTop);
-    //
-    // var cardBottom = document.querySelector('.div--card_bottom').offsetHeight;
-    // console.log(cardBottom);
 
     var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
-    console.log(cardHeight + "px single card height");
 
     // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
     tenCardHeight = cardHeight * 11;
-    console.log(tenCardHeight + "px 10 card height");
 
     appendNewCard.classList.add('hideContent');
     appendNewCard.style.height = `${tenCardHeight}px`;
   }
   else {
-    console.log("array not bigger than 10");
     appendNewCard.style.height = `auto`;
   }
 }
