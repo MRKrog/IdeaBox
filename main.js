@@ -4,6 +4,7 @@ const bodyInput = document.querySelector(".body-input");
 const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
 var footerContainer = document.querySelector('.footer--container');
+const ideaParent = document.querySelector('.main--idea_feed');
 
 var tenCardHeight;
 var allCardHeight;
@@ -17,6 +18,7 @@ const cardArray = [];
 window.addEventListener('load', loadFromStorage);
 submitBtn.addEventListener('click', submitClick);
 qualClick.addEventListener('click', qualityFilter);
+ideaParent.addEventListener('click', updateCard);
 
 // Listen for user Enter key
 bodyInput.addEventListener('keypress', function(event) {
@@ -59,14 +61,15 @@ function submitClick(event) {
 
 // Create Card
 function createCard(idea) {
+  // var cardIdea = idea;
   appendNewCard.insertAdjacentHTML('afterbegin',
-    `<article class="article--ideabox_card" id="${idea.id}">
-     <div class="div--card_top">
-       <h2>${idea.title}</h2>
-       <p>
-         ${idea.body}
-       </p>
-     </div>
+    `<article class="article--ideabox_card" id="${idea.id}" data-id="${idea.id}">
+      <div class="div--card_top" data-id="${idea.id}">
+        <h2 contenteditable="true" class="update-idea updated-title" data-id="${idea.id}">${idea.title}</h2>
+        <p contenteditable="true" class=" update-idea updated-body" data-id="${idea.id}">
+          ${idea.body}
+          </p>
+       </div>
      <div class="div--card_bottom">
        <button class="button--down button--card" type="button" name="button" onclick="upDownQuality(${idea.id}, -1)">
          <img src="images/downvote.svg" />
@@ -81,6 +84,54 @@ function createCard(idea) {
      </div>
     </article>`
   );
+}
+
+// Update card
+
+function updateCard() {
+  if (event.target.className === 'article--ideabox_card' || 'div--card_top') {
+    if (event.target.classList.contains('update-idea')) {
+      // console.log("entered");
+      // console.log(event.target);
+      event.target.addEventListener('blur', updateText);
+    }
+  }
+}
+
+function updateText() {
+  console.log('update click entered');
+  let id = event.target.dataset.id;
+  let ideaToUpdate = getIdeaById(id);
+  let ideaText = event.target.innerText;
+  let index = getIndex(ideaToUpdate);
+  // console.log(event.target);
+  // console.log("id: " + id);
+  // console.log("idea to update: " + ideaToUpdate);
+  // console.log("idea text: " + ideaText);
+  if (event.target.classList.contains('updated-title')) {
+    ideaToUpdate.updateContent(ideaText, 'title');
+  } else {
+    ideaToUpdate.updateContent(ideaText, 'body');
+  }
+    cardArray.splice(index, 1, ideaToUpdate);
+    ideaToUpdate.saveToStorage(cardArray);
+
+  if (event.target.classList.contains('article')) {
+    console.log(event.target.innerHTML);
+    console.log("if statement entered");
+  }
+}
+
+function getIdeaById(id) {
+  for (var i = 0; i < cardArray.length; i++) {
+    if (id == cardArray[i].id) {
+      return cardArray[i];
+    }
+  }
+}
+
+function getIndex(idea) {
+  console.log(cardArray.indexOf(idea));
 }
 
 // Delete Card
@@ -186,6 +237,21 @@ function setShowMore(){
 
     console.log(appendNewCard.offsetHeight + "px All Cards Height");
     appendNewCard.classList.add('showContent');
+    //
+    // var cardTop = document.querySelector('.div--card_top').offsetHeight;
+    // console.log(cardTop);
+    //
+    // var cardBottom = document.querySelector('.div--card_bottom').offsetHeight;
+    // console.log(cardBottom);
+
+    var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    console.log(cardHeight + "px single card height");
+
+    // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
+    tenCardHeight = cardHeight * 11;
+    console.log(tenCardHeight + "px 10 card height");
+
+    appendNewCard.classList.add('hideContent');
     appendNewCard.style.height = `${tenCardHeight}px`;
   }
   else {
