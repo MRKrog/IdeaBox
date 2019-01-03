@@ -29,7 +29,6 @@ Background #FFFFFF
 Copy #7C7879
 Quality #7C7879
 
-
 ---------
 FONTS
 font-family: 'Open Sans', sans-serif;
@@ -41,9 +40,6 @@ font-family: 'Open Sans', sans-serif;
 *:after,
 *:before {
   box-sizing: border-box;
-}
-html {
-
 }
 
 body {
@@ -117,9 +113,18 @@ img {
   padding-top: 1.5em;
 }
 
+footer {
+  margin: 1em 0;
+}
+
+.showContent {
+  overflow: hidden;
+}
+
 /* END Global Styles */
 
 /* START Nav Bar */
+
 .header--container {
   background: #524649;
 }
@@ -342,49 +347,40 @@ img {
 
 /* END Idea Feed */
 
-footer {
-  margin: 1em 0;
-}
-
-.hideContent {
-  transition: height 350ms ease-in-out;
-  overflow: hidden;
-}
-
-.showContent {
-  transition: height 350ms ease-in-out;
-  overflow: visible;
-}
-
-
-
 
 /* START Media Queries */
 @media screen and (max-width: 680px) {
+
   /* Nav Bar */
   .nav--conatiner {
     display: block;
     padding: 1.2em;
   }
+
   .aside--nav_bar {
     width:100%;
     text-align: center;
     padding-bottom: 1.2em;
   }
+
   .aside--nav_bar:last-child {
     padding-bottom: 0em;
   }
+
   .h1--main_title {
     margin:0;
   }
+
   .search-bar {
     margin: auto;
     max-width: 265px;
     right: 15px;
   }
+
   .searchTerm {
     right:0px;
   }
+
   .searchButton {
     right: -32px;
   }
@@ -399,14 +395,18 @@ footer {
     width: 100%;
     font-size: 1em;
   }
+
 }
 @media screen and (max-width: 340px) {
+
   /* Nav Bar */
   .h1--main_title {
     font-size:2em;
   }
+
   .search-bar {
     max-width: 206px;
   }
+  
 }
 /* END Media Queries */

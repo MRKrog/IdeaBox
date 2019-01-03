@@ -12,10 +12,10 @@ This project was build with the following
 - localStorage
 
 ## Practice Description
-> 
+>
 
 ### Static Composition
 ![Static Comp From Turing](images/ideabox-assignment.jpg)
 
 ### My Assignment Screen Grab
-![Screen Grab of My Assignment](images/readme-project-image.png)
+![Screen Grab of My Assignment](images/ideabox-user_assignment.png)

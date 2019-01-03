@@ -5,7 +5,9 @@ const submitBtn = document.querySelector(".submit-btn");
 const appendNewCard = document.querySelector('.section--idea_container');
 var footerContainer = document.querySelector('.footer--container');
 
-var tenCardHeight = 0;
+var tenCardHeight;
+var allCardHeight;
+
 const qualityArray = ['Swill', 'Plausible', 'Genius'];
 const qualClick = document.querySelector("#quality-filter");
 
@@ -51,9 +53,8 @@ function submitClick(event) {
   newIdea.saveToStorage();
   createCard(newIdea);
 
-  // Clear Inputs
-  // titleInput.value = "";
-  // bodyInput.value = "";
+  titleInput.value = "";
+  bodyInput.value = "";
 }
 
 // Create Card
@@ -100,14 +101,6 @@ function deleteCard(cardId) {
   cardArray.splice(deleteCardArray, 1);
 }
 
-// const clearLocalStorage = document.querySelector('.clear-localStorage');
-// clearLocalStorage.addEventListener('click', clearStorage);
-// // Clear Storage
-// function clearStorage(){
-//   window.localStorage.clear();
-//   alert('cleared storage');
-// }
-
 function upDownQuality(cardId, direction){
   let ideaToUpdate = cardArray.find(function(idea) {
     return cardId === idea.id;
@@ -152,45 +145,52 @@ function searchIdeas(e) {
   filteredSearch.forEach(function(idea){
     createCard(idea);
   });
+  setShowMore();
 }
 
 function qualityFilter(event){
   event.preventDefault();
   var clickedQuality = event.target.dataset.quality;
   let filteredQuality = cardArray.filter(function(x, i){
-    let qualityName = qualityArray[x.quality]
-    return qualityName.includes(clickedQuality)
+    let qualityName = qualityArray[x.quality];
+    return qualityName.includes(clickedQuality);
   });
   appendNewCard.innerHTML = "";
   filteredQuality.forEach(function(idea){
     createCard(idea)
   });
+  var allCardHeight = 0;
+  setShowMore();
 }
 
 function setShowMore(){
   var numberOfCards = cardArray.length;
-  if(numberOfCards >= 10) {
+  footerContainer.innerHTML = "";
+  tenCardHeight = 0;
+  allCardHeight = 0;
+  var allCards = document.querySelectorAll('.article--ideabox_card');
+  console.log(allCards);
+  if(numberOfCards > 10 && allCards.length > 10) {
     footerContainer.insertAdjacentHTML('afterbegin',
       `<button class="show-cards">Show More...</button>`
     );
     var showBtn = document.querySelector('.show-cards');
     showBtn.addEventListener('click', showMoreLessBtn);
-    //
-    // var cardTop = document.querySelector('.div--card_top').offsetHeight;
-    // console.log(cardTop);
-    //
-    // var cardBottom = document.querySelector('.div--card_bottom').offsetHeight;
-    // console.log(cardBottom);
 
-    var cardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
-    console.log(cardHeight + "px single card height");
+    for(var i = 0; i < 10; i++){
+      var thisCardHeight = (allCards[i].offsetHeight) + 25;
+      tenCardHeight += thisCardHeight
+    }
 
-    // var singleCardHeight = (document.querySelector('.article--ideabox_card').offsetHeight) + 25;
-    tenCardHeight = cardHeight * 11;
-    console.log(tenCardHeight + "px 10 card height");
-    
-    appendNewCard.classList.add('hideContent');
+    console.log(tenCardHeight + "px Ten Cards Height");
+
+    console.log(appendNewCard.offsetHeight + "px All Cards Height");
+    appendNewCard.classList.add('showContent');
     appendNewCard.style.height = `${tenCardHeight}px`;
+  }
+  else {
+    console.log("array not bigger than 10");
+    appendNewCard.style.height = `auto`;
   }
 }
 
@@ -198,14 +198,12 @@ function showMoreLessBtn(){
   var thisText = this.innerText.toUpperCase();
   if(thisText === "SHOW MORE..."){
     appendNewCard.style.height = `auto`;
-    appendNewCard.classList.remove('hideContent');
-    appendNewCard.classList.add('showContent');
+    appendNewCard.classList.remove('showContent');
     this.innerText = "Show Less...";
 
   } else if(thisText === "SHOW LESS..."){
     this.innerText = "Show More...";
-    appendNewCard.classList.remove('showContent');
-    appendNewCard.classList.add('hideContent');
+    appendNewCard.classList.add('showContent');
     appendNewCard.style.height = `${tenCardHeight}px`;
   }
 }
