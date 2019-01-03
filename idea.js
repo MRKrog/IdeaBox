@@ -15,9 +15,13 @@ class Idea {
     localStorage.removeItem(this.id);
   }
 
-  updateContent() {
+  updateContent(updatedContent, area) {
     console.log("Update content: " + this);
-    localStorage.setItem(this.id, JSON.stringify(this));
+    if (area === 'title') {
+      this.title = updatedContent;
+    } else if (area === 'body') {
+      this.body = updatedContent;
+    }
   }
 
   updateQuality() {
