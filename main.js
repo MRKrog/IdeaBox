@@ -9,7 +9,7 @@ const ideaParent = document.querySelector('.main--idea_feed');
 var tenCardHeight;
 var allCardHeight;
 
-const qualityArray = ['Swill', 'Plausible', 'Genius'];
+const qualityArray = ['Dung', 'Swill', 'Plausible', 'Genius', 'Crazy'];
 const qualClick = document.querySelector("#quality-filter");
 
 const cardArray = [];
@@ -146,17 +146,25 @@ function upDownQuality(cardId, direction){
   var theQuality = thisCard.querySelector('.h4--quality_control > span'); // h4 quality
   var newQuality = ideaToUpdate.quality; // this instance quality value
 
-  if(direction === 1 && newQuality < 2){
-    if(newQuality === 1){
-      ideaToUpdate.quality = 2; // Now Genius
+  if(direction === 1 && newQuality < 4){
+    if (newQuality === 3){
+      ideaToUpdate.quality = 4;
+    } else if (newQuality === 2){
+      ideaToUpdate.quality = 3;
+    } else if (newQuality === 1){
+      ideaToUpdate.quality = 2;
     } else if (newQuality === 0) {
-      ideaToUpdate.quality = 1; // Now Plausible
+      ideaToUpdate.quality = 1;
     }
-  } else if(direction === -1){
-    if(newQuality === 2) {
-      ideaToUpdate.quality = 1; // Now Plausible
+  } else if (direction === -1){
+    if(newQuality === 4){
+      ideaToUpdate.quality = 3;
+    } else if (newQuality === 3){
+      ideaToUpdate.quality = 2;
+    } else if (newQuality === 2) {
+      ideaToUpdate.quality = 1;
     } else if(newQuality === 1){
-      ideaToUpdate.quality = 0; // Now Swill
+      ideaToUpdate.quality = 0;
     }
   }
   theQuality.innerText = qualityArray[ideaToUpdate.quality];
